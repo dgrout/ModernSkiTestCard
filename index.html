@@ -19,7 +19,7 @@
     <link href="https://fonts.cdnfonts.com/css/sofia-pro" rel="stylesheet">
 
     <!-- actual code we wrote -->
-    <script src="site.js" defer></script>
+    <script src="site.js?v=2" defer></script>
     <link rel="stylesheet" href="styles.css?v=5" />
 </head>
 
@@ -50,11 +50,11 @@
 
                     <div class="row pivs">
                         <button class="piv"
-                            data-bind="css: {sel: valuePivot() == 'attribute'}, click: () => {valuePivot('attribute')}">By
-                            Attribute</button>
-                        <button class="piv"
                             data-bind="css: {sel: valuePivot() == 'ski'}, click: () => {valuePivot('ski')}">By
                             Ski</button>
+                        <button class="piv"
+                            data-bind="css: {sel: valuePivot() == 'attribute'}, click: () => {valuePivot('attribute')}">By
+                            Attribute</button>
                     </div>
 
                     <div class="skiWrapper"
@@ -62,17 +62,16 @@
                         <div class="ski">
                             <div class="skiTitle" data-bind="text: $data"></div>
                             <table class="skiAttrWrapper table"
-                                data-bind="foreach: $root.valuePivot() === 'ski' ? Object.keys($root.skisByAttribute()[$data]) : Object.keys($root.attributesBySki()[$data])">
+                                data-bind="foreach: Object.keys($root.relevantPivotData()[$data]).sort()">
                                 <tr class="skiAttr">
-                                    <td data-bind="text: $data"></td>
+                                    <td class="rowName" data-bind="text: $data"></td>
                                     <td>
                                         <input type="range" class="form-range slider"
-                                            data-bind="value: $root.valuePivot() === 'ski' ? $root.skisByAttribute()[$parent][$data] : $root.attributesBySki()[$parent][$data]"
-                                            min="0" max="10" disabled>
+                                            data-bind="value: $root.relevantPivotData()[$parent][$data]" min="0"
+                                            max="10" disabled>
                                     </td>
                                     <td>
-                                        <output
-                                            data-bind="text: $root.valuePivot() === 'ski' ? $root.skisByAttribute()[$parent][$data] : $root.attributesBySki()[$parent][$data]"></output>
+                                        <output data-bind="text: $root.relevantPivotData()[$parent][$data]"></output>
                                     </td>
                                 </tr>
                             </table>

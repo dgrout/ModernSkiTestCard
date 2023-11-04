@@ -16,19 +16,18 @@
 
 .pivs {
   display: flex;
-  padding: 4px 8px;
 }
 
 .piv {
   flex: 1;
-  margin: 0 8px;
   background: transparent;
   border: none;
   color: black;
+  border-bottom: 2px solid transparent;
 }
 
 .piv.sel {
-  border-bottom: 3px solid black;
+  border-bottom: 2px solid black;
 }
 
 .row {
@@ -64,7 +63,7 @@
 
 .skiTitle {
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 4px;
 }
 
@@ -126,6 +125,7 @@ td {
 }
 .slider::-webkit-slider-thumb {
   background: #333333 !important;
+  box-shadow: none;
 }
 /* FF slider */
 .slider::-moz-range-track {
@@ -133,4 +133,5 @@ td {
 }
 .slider::-moz-range-thumb {
   background-color: #333333 !important;
+  box-shadow: none;
 }
