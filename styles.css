@@ -1,0 +1,90 @@
+* {
+  font-family: "Sofia Pro", sans-serif !important;
+}
+
+.navbar {
+  padding: 14px 20px 12px 24px !important;
+}
+
+.navbar-text {
+  color: white;
+  padding: 0;
+  font-size: 32px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.row {
+  padding: 20px;
+}
+
+.beta {
+  border-left: 1px solid white;
+  padding-left: 8px;
+  margin-left: 8px;
+  font-size: 12px;
+  opacity: 0.7;
+  padding-top: 10px;
+}
+
+.form-label {
+  font-size: 20px;
+  padding-left: 0;
+}
+
+.ski {
+  border-top: 1px solid #333;
+  margin: 8px;
+  padding: 8px;
+}
+
+.skiTitle {
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.form-select {
+  background-color: transparent !important;
+  color: black;
+  font-weight: 600;
+  border: 1px solid black;
+}
+
+.skiAttrWrapper {
+}
+
+.skiAttr {
+  padding: 4px 8px;
+}
+
+body {
+  background: #ffea00;
+}
+
+tr,
+td {
+  border-bottom: none;
+}
+
+td {
+  background: transparent !important;
+}
+
+/* chrome slider */
+.slider {
+  opacity: 1 !important;
+}
+.slider::-webkit-slider-runnable-track {
+  background: #ffea00;
+  border: 1px solid #333;
+}
+.slider::-webkit-slider-thumb {
+  background: #333333 !important;
+}
+/* FF slider */
+.slider::-moz-range-track {
+  background-color: #ffea00;
+}
+.slider::-moz-range-thumb {
+  background-color: #333333 !important;
+}
