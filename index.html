@@ -20,7 +20,7 @@
 
     <!-- actual code we wrote -->
     <script src="site.js" defer></script>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 
 <body>
@@ -35,37 +35,44 @@
             </nav>
 
             <div class="row welcome">
-                Thanks for rating some skis! If you wanna rate a ski, head to the link here!
-                <a target="_blank" data-bind="attr: {href: formUrl}">Dat google form
-                    doe</a>
+                <a class="evenboxinner" target="_blank" data-bind="attr: {href: formUrl}">Rate skis here!</a>
             </div>
 
             <div class="row emailPicker">
-                You can also check out what you rated skis. <br>
-                If you just rated something, make sure to smash the refresh button first if you wanna see it <br><br>
-
-                <div class="form-label">First of all, who are ya?</div>
+                <div class="form-label">Who are ya?</div>
                 <select class="form-select"
                     data-bind="options: uniqueEmails, value: selectedEmail, valueAllowUnset: true">
                 </select>
             </div>
 
             <div class="skisByAttrWrapper" data-bind="if: initComplete">
-                <div class="row" data-bind="if: selectedEmail() && thisUsersSkis().length">
-                    <div class="skiWrapper" data-bind="foreach: thisUsersSkis">
+                <div class="row allSkis" data-bind="if: selectedEmail() && thisUsersSkis().length">
+
+                    <div class="row pivs">
+                        <button class="piv"
+                            data-bind="css: {sel: valuePivot() == 'attribute'}, click: () => {valuePivot('attribute')}">By
+                            Attribute</button>
+                        <button class="piv"
+                            data-bind="css: {sel: valuePivot() == 'ski'}, click: () => {valuePivot('ski')}">By
+                            Ski</button>
+                    </div>
+
+                    <div class="skiWrapper"
+                        data-bind="foreach: valuePivot() === 'ski' ? thisUsersSkis() : allValidAttributes()">
                         <div class="ski">
                             <div class="skiTitle" data-bind="text: $data"></div>
                             <table class="skiAttrWrapper table"
-                                data-bind="foreach: Object.keys($root.skisByAttribute()[$data])">
+                                data-bind="foreach: $root.valuePivot() === 'ski' ? Object.keys($root.skisByAttribute()[$data]) : Object.keys($root.attributesBySki()[$data])">
                                 <tr class="skiAttr">
                                     <td data-bind="text: $data"></td>
                                     <td>
                                         <input type="range" class="form-range slider"
-                                            data-bind="value: $root.skisByAttribute()[$parent][$data]" min="0" max="10"
-                                            disabled>
+                                            data-bind="value: $root.valuePivot() === 'ski' ? $root.skisByAttribute()[$parent][$data] : $root.attributesBySki()[$parent][$data]"
+                                            min="0" max="10" disabled>
                                     </td>
                                     <td>
-                                        <output data-bind="text: $root.skisByAttribute()[$parent][$data]"></output>
+                                        <output
+                                            data-bind="text: $root.valuePivot() === 'ski' ? $root.skisByAttribute()[$parent][$data] : $root.attributesBySki()[$parent][$data]"></output>
                                     </td>
                                 </tr>
                             </table>
@@ -73,7 +80,7 @@
                     </div>
                 </div>
                 <div class="row" data-bind="if: selectedEmail() && thisUsersSkis().length == 0">
-                    y'aint got no skis there bud
+                    Y'aint got no skis there bud!
                 </div>
             </div>
 

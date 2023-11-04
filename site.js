@@ -22,7 +22,9 @@ var ViewModel = function () {
   self.selectedEmail = ko.observable("");
   self.valuePivot = ko.observable("ski");
   self.skisByAttribute = ko.observable({});
+  self.attributesBySki = ko.observable({});
   self.thisUsersSkis = ko.observableArray([]);
+  self.allValidAttributes = ko.observableArray([]);
   self.initComplete = ko.observable(false);
   self.formUrl = ko.observable(getUrlParameter("formurl"));
 
@@ -65,16 +67,18 @@ var ViewModel = function () {
     });
     allValidAttributes.forEach((attr) => {
       var attrIndex = columnHeaders.indexOf(attr);
+      attributesBySki[attr] = {};
       thisUsersRows.forEach((row) => {
         skisByAttribute[row[skiColumnIndex]][attr] = row[attrIndex];
+        attributesBySki[attr][row[skiColumnIndex]] = row[attrIndex];
       });
     });
 
+    self.allValidAttributes(allValidAttributes);
     self.thisUsersSkis(Object.keys(skisByAttribute));
     self.skisByAttribute(ko.mapping.fromJS(skisByAttribute));
+    self.attributesBySki(ko.mapping.fromJS(attributesBySki));
   });
-
-  self.attributesBySki = ko.computed(() => {});
 };
 
 ko.options.deferUpdates = true;
