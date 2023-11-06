@@ -27,6 +27,7 @@ var ViewModel = function () {
   self.allValidAttributes = ko.observableArray([]);
   self.initComplete = ko.observable(false);
   self.formUrl = ko.observable(getUrlParameter("formurl"));
+  self.relevantPivotData = ko.observable({});
 
   // first things first, load the spreadsheet with a get request
   $.get(url, (sheetData) => {
@@ -74,10 +75,15 @@ var ViewModel = function () {
       });
     });
 
-    self.allValidAttributes(allValidAttributes);
-    self.thisUsersSkis(Object.keys(skisByAttribute));
+    self.allValidAttributes(allValidAttributes.sort());
+    self.thisUsersSkis(Object.keys(skisByAttribute).sort());
     self.skisByAttribute(ko.mapping.fromJS(skisByAttribute));
     self.attributesBySki(ko.mapping.fromJS(attributesBySki));
+    self.relevantPivotData(
+      self.valuePivot() == "ski"
+        ? ko.mapping.fromJS(skisByAttribute)
+        : ko.mapping.fromJS(attributesBySki)
+    );
   });
 };
 
